@@ -19,7 +19,7 @@ jobs:
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.IP }}
-          username: ubuntu
+          username: ec2-user
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "app/**"       # tudo dentro de app/
           target: "/var/www/html"
