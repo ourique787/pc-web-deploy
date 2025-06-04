@@ -25,3 +25,8 @@ jobs:
           target: "/var/www/html"
           strip_components: 1    # descarta a pasta app/
           overwrite: true
+
+      - name: Run Composer Install
+        run: ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@${{ secrets.IP }} "cd /var/www/html && composer install --no-dev --optimize-autoloader"
+      - name: Run NPM Install
+        run: ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@${{ secrets.IP }} "cd /var/www/html && npm install --production"
