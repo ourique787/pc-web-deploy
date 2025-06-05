@@ -35,4 +35,4 @@ jobs:
       - name: Run Composer Install
         run: ssh -i ~/.ssh/private_key ec2-user@${{ secrets.IP }} "cd /var/www/html && composer install --no-dev --optimize-autoloader"
       - name: Run NPM Install
-        run: ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@${{ secrets.IP }} "cd /var/www/html && npm install --production"
+        run: ssh -i ~/.ssh/private_key ec2-user@${{ secrets.IP }} "cd /var/www/html && npm install --production"
