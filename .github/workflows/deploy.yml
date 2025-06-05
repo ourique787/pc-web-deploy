@@ -26,7 +26,12 @@ jobs:
           strip_components: 1    # descarta a pasta app/
           overwrite: true
 
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/private_key
+          chmod 600 ~/.ssh/private_key
       - name: Run Composer Install
-        run: ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@${{ secrets.IP }} "cd /var/www/html && composer install --no-dev --optimize-autoloader"
+        run: ssh -i ~/.ssh/private_key ec2-user@${{ secrets.IP }} "cd /var/www/html && composer install --no-dev --optimize-autoloader"
       - name: Run NPM Install
         run: ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@${{ secrets.IP }} "cd /var/www/html && npm install --production"
