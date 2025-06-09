@@ -19,7 +19,7 @@ jobs:
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.IP }}
-          username: ec2-user
+          username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "app/**"       # tudo dentro de app/
           target: "/var/www/html"
@@ -33,6 +33,6 @@ jobs:
           chmod 600 ~/.ssh/private_key
           ssh-keyscan -H ${{ secrets.IP }} >> ~/.ssh/known_hosts
       - name: Run Composer Install
-        run: ssh -i ~/.ssh/private_key ec2-user@${{ secrets.IP }} "cd /var/www/html && composer install --no-dev --optimize-autoloader"
+        run: ssh -i ~/.ssh/private_key ubuntu@${{ secrets.IP }} "cd /var/www/html && composer install --no-dev --optimize-autoloader"
       - name: Run NPM Install
-        run: ssh -i ~/.ssh/private_key ec2-user@${{ secrets.IP }} "cd /var/www/html && npm install --production"
+        run: ssh -i ~/.ssh/private_key ubuntu@${{ secrets.IP }} "cd /var/www/html && npm install --production"

@@ -50,3 +50,47 @@ SESSION_DRIVER=database
 para:
 
 SESSION_DRIVER=file
+
+## Comandos ubuntu
+
+## Como instalar o PHP
+
+```
+sudo apt update
+
+sudo add-apt-repository ppa:ondrej/php
+
+[ENTER]
+
+sudo apt install php8.2 php8.2-mysql php8.2-intl php8.2-curl php8.2-mbstring php8.2-xml php8.2-zip php8.2-ldap php8.2-gd php8.2-bz2 php8.2-sqlite3 php8.2-redis -y
+
+```
+
+
+## Como instalar o apache
+
+```
+sudo apt install apache2 -y
+```
+
+
+## como instalar o composer
+
+```
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+
+HASH=`curl -sS https://composer.github.io/installer.sig`
+
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+```
+
+## Como instalar o node
+
+```
+sudo apt install nodejs -y
+sudo apt install npm -y
+```
+
