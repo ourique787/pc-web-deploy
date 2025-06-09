@@ -2,57 +2,6 @@
 
 ## App in laravel 
 
-Os comandos iniciais estão no grupo do WPP
-
-e aqui é a config do apache:
-
-cd /var/www/html/
-sudo chown -Rf ec2-user:ec2-user html/
-sudo mkdir -p /etc/httpd/sites-available
-sudo mkdir -p /etc/httpd/sites-enabled
-sudo nano /etc/httpd/conf/httpd.conf
-sudo nano /etc/httpd/sites-available/meusite.conf
-
-Colocar esse conteudo:
-
-<VirtualHost *:80>
-    ServerName laravel.local
-    DocumentRoot /var/www/html/public
-
-    <Directory /var/www/html/public>
-        AllowOverride All
-        Require all granted
-    </Directory>
-
-    ErrorLog ${APACHE_LOG_DIR}/laravel-error.log
-    CustomLog ${APACHE_LOG_DIR}/laravel-access.log combined
-</VirtualHost>
-
-
-sudo ln -s /etc/httpd/sites-available/meusite.conf /etc/httpd/sites-enabled/meusite.conf
-sudo chown -Rf apache:apache /var/www/html/
-sudo chmod -R 755 /var/www/html/
-
-sudo systemctl restart httpd
-sudo apachectl configtest
-sudo nano /etc/httpd/conf/httpd.conf
-sudo systemctl restart httpd
-cd /var/www/html/
-sudo chmod 777 -Rf storage/
-sudo cp .env.example .env
-sudo chown -Rf ec2-user:ec2-user .env
-sudo vim .env
-
-e altere de:
-
-SESSION_DRIVER=database
-
-para:
-
-SESSION_DRIVER=file
-
-## Comandos ubuntu
-
 ## Como instalar o PHP
 
 ```
@@ -92,5 +41,58 @@ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ```
 sudo apt install nodejs -y
 sudo apt install npm -y
+```
+
+
+## Como criar a configuração do HOST
+
+```
+cd /etc/apache2/sites-available
+sudo touch app.conf
+```
+
+E colocar o seguinte conteudo lá dentro o app.conf
+
+com o comando 
+sudo nano app.conf
+
+```
+<VirtualHost *:80>
+    ServerName [ip-da-sua-vm]
+    DocumentRoot /var/www/html/public
+
+    <Directory /var/www/html/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/laravel-error.log
+    CustomLog ${APACHE_LOG_DIR}/laravel-access.log combined
+</VirtualHost>
+```
+
+Agora basta executar os seguintes comandos
+
+```
+cd /etc/apache2/sites-enabled/
+sudo ln -s ../sites-available/app.conf app.conf
+
+cd /var/www/
+sudo chown -Rf ubuntu:ubuntu html
+cd html
+mkdir public
+
+sudo service apache2 restart
+```
+
+
+## Comandos que precisam ser executados uma unica vez no servidor
+
+```
+cd /var/www/html
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+sudo chmod 777 -Rf storage
 ```
 
