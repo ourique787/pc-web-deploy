@@ -24,8 +24,8 @@ Colocar esse conteudo:
         Require all granted
     </Directory>
 
-    ErrorLog /var/log/httpd/laravel-error.log
-    CustomLog /var/log/httpd/laravel-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/laravel-error.log
+    CustomLog ${APACHE_LOG_DIR}/laravel-access.log combined
 </VirtualHost>
 
 
