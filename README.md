@@ -54,6 +54,7 @@ sudo touch app.conf
 E colocar o seguinte conteudo lá dentro o app.conf
 
 com o comando 
+
 sudo nano app.conf
 
 ```
