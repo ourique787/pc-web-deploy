@@ -2,6 +2,8 @@
 
 ## App in laravel 
 
+Lucas teste plataformas
+
 ## Como instalar o PHP
 
 ```
